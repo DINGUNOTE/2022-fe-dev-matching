@@ -1,4 +1,4 @@
-export default function SearchInput({ $target, initialState }) {
+export default function SearchInput({ $target, initialState, onChange }) {
   this.$element = document.createElement('form');
   this.$element.className = 'SearchInput';
   this.state = initialState;
@@ -17,4 +17,8 @@ export default function SearchInput({ $target, initialState }) {
   };
 
   this.render();
+
+  this.$element.addEventListener('keyup', (e) => {
+    onChange(e.target.value);
+  });
 }
