@@ -18,7 +18,25 @@ export default function SearchInput({ $target, initialState, onChange }) {
 
   this.render();
 
+  window.addEventListener('load', () => {
+    this.$element.children[0].focus();
+  });
+
   this.$element.addEventListener('keyup', (e) => {
-    onChange(e.target.value);
+    const actionIgnoreKeys = [
+      'Enter',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+    ];
+
+    if (!actionIgnoreKeys.includes(e.key)) {
+      onChange(e.target.value);
+    }
+  });
+
+  this.$element.addEventListener('submit', (e) => {
+    e.preventDefault();
   });
 }
