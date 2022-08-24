@@ -1,11 +1,18 @@
-export const API_END_POINT =
+export const BASE_URL =
   'https://wr4a6p937i.execute-api.ap-northeast-2.amazonaws.com/dev';
 
+const cache = {};
+
 const request = async (url) => {
+  if (cache[url]) {
+    return cache[url];
+  }
+
   const res = await fetch(url);
 
   if (res.ok) {
     const json = await res.json();
+    cache[url] = json;
     return json;
   }
 
@@ -13,4 +20,4 @@ const request = async (url) => {
 };
 
 export const fetchLanguages = async (keyword) =>
-  request(`${API_END_POINT}/languages?keyword=${keyword}`);
+  request(`${BASE_URL}/languages?keyword=${keyword}`);
